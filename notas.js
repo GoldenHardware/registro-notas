@@ -106,3 +106,82 @@ function ordenarPorNota(lista) {
 function ordenarPorNombre(lista) {
   return [...lista].sort((a, b) => a.nombre.localeCompare(b.nombre, "es"));
 }
+
+/* ---------------------------------------------------------
+   Fase 3 · Estadísticas de la clase (ninguna cambia la lista)
+   --------------------------------------------------------- */
+
+/**
+ * Calcula la nota media, sin redondear.
+ * NO cambia la lista.
+ * @param {Array<{nombre: string, nota: number}>} lista - Lista de alumnos.
+ * @returns {number} La media, o 0 si no hay alumnos.
+ */
+function notaMedia(lista) {
+  const suma = lista.reduce((total, alumno) => total + alumno.nota, 0);
+  return lista.length === 0 ? 0 : suma / lista.length;
+}
+
+/**
+ * Busca la nota más alta.
+ * NO cambia la lista.
+ * @param {Array<{nombre: string, nota: number}>} lista - Lista de alumnos.
+ * @returns {number | null} La nota máxima, o null si no hay alumnos.
+ */
+function notaMaxima(lista) {
+  if (lista.length === 0) {
+    return null;
+  }
+  return Math.max(...lista.map(alumno => alumno.nota));
+}
+
+/**
+ * Selecciona los alumnos aprobados (nota 5 o más).
+ * NO cambia la lista.
+ * @param {Array<{nombre: string, nota: number}>} lista - Lista de alumnos.
+ * @returns {Array<{nombre: string, nota: number}>} Un array nuevo con los aprobados.
+ */
+function aprobados(lista) {
+  return lista.filter(alumno => alumno.nota >= NOTA_APROBADO);
+}
+
+/**
+ * Saca solo los nombres de los aprobados (usa aprobados).
+ * NO cambia la lista.
+ * @param {Array<{nombre: string, nota: number}>} lista - Lista de alumnos.
+ * @returns {string[]} Un array nuevo con los nombres.
+ */
+function nombresAprobados(lista) {
+  return aprobados(lista).map(alumno => alumno.nombre);
+}
+
+/**
+ * Comprueba si algún alumno tiene un 10.
+ * NO cambia la lista.
+ * @param {Array<{nombre: string, nota: number}>} lista - Lista de alumnos.
+ * @returns {boolean} true si hay al menos un 10.
+ */
+function hayAlgunDiez(lista) {
+  return lista.some(alumno => alumno.nota === 10);
+}
+
+/**
+ * Comprueba si todos los alumnos han aprobado.
+ * NO cambia la lista.
+ * @param {Array<{nombre: string, nota: number}>} lista - Lista de alumnos.
+ * @returns {boolean} true si todos tienen 5 o más (también true con la lista vacía).
+ */
+function todosAprobados(lista) {
+  return lista.every(alumno => alumno.nota >= NOTA_APROBADO);
+}
+
+/**
+ * Devuelve los n mejores alumnos, de la nota más alta a la más baja.
+ * NO cambia la lista.
+ * @param {Array<{nombre: string, nota: number}>} lista - Lista de alumnos.
+ * @param {number} n - Cuántos alumnos se quieren.
+ * @returns {Array<{nombre: string, nota: number}>} Un array nuevo con los n mejores.
+ */
+function ranking(lista, n) {
+  return ordenarPorNota(lista).slice(0, n);
+}

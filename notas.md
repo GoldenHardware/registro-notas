@@ -77,3 +77,61 @@ Porque `sort` ordena **el propio array** (lo cambia). Si ordenara la lista que r
 Se ordenarían como texto y saldrían `1, 10, 9` (de menor a mayor como texto), no `10, 9, 1`. Además, como en la lista hay objetos, sin comparación se compararían como `"[object Object]"` y el orden no tendría nada que ver con las notas.
 
 📷 `funciones-consola.png` — *(pegar captura)*
+
+---
+
+## Fase 3 · Estadísticas de la clase
+
+| Función | Método principal |
+|---------|------------------|
+| `notaMedia` | `reduce` (suma) |
+| `notaMaxima` | `map` + `Math.max` |
+| `aprobados` | `filter` |
+| `nombresAprobados` | `aprobados` + `map` |
+| `hayAlgunDiez` | `some` |
+| `todosAprobados` | `every` |
+| `ranking` | `ordenarPorNota` + `slice` |
+
+### Experimento 1 · Todas las funciones con una lista vacía
+
+| Llamada | Resultado |
+|---------|-----------|
+| `notaMedia([])` | `0` |
+| `notaMaxima([])` | `null` |
+| `aprobados([])` | `[]` |
+| `nombresAprobados([])` | `[]` |
+| `hayAlgunDiez([])` | `false` |
+| `todosAprobados([])` | `true` |
+| `ranking([], 2)` | `[]` |
+
+### Experimento 2 · `notaMedia` sin valor inicial en `reduce`
+
+Con `lista.reduce((total, alumno) => total + alumno.nota)` (sin el `0`) y la lista vacía sale:
+
+```
+Uncaught TypeError: Reduce of empty array with no initial value
+```
+
+Después he vuelto a poner el `0`.
+
+### Preguntas
+
+**1. ¿Por qué `reduce` necesita un valor inicial cuando la lista está vacía?**
+Sin valor inicial, `reduce` usa el primer elemento como acumulador de partida. Si la lista está vacía no hay primer elemento, así que no tiene con qué empezar y lanza un `TypeError`. Con valor inicial (`0`), si la lista está vacía simplemente devuelve ese `0`.
+Además, en `notaMedia` el valor inicial hace falta siempre: los elementos son objetos, y sin el `0` el acumulador empezaría siendo el objeto del primer alumno, no un número.
+
+**2. ¿Qué devuelve `todosAprobados` con una lista vacía? ¿Te parece lógico? Explícalo.**
+Devuelve `true`. Es lógico desde el punto de vista de la lógica matemática ("verdad vacía"): `every` devuelve `false` en cuanto encuentra un elemento que no cumple la condición. Con una lista vacía no hay ningún alumno suspenso, así que no puede encontrar un contraejemplo. Aunque suena raro decir "todos aprobados" cuando no hay nadie, la afirmación "no hay ningún suspenso" es cierta.
+
+**3. ¿Qué diferencia hay entre `map` y `filter`? Pon un ejemplo de tu código.**
+- `map` **transforma** cada elemento: devuelve un array con la misma cantidad de elementos, pero cambiados.
+- `filter` **selecciona** elementos: devuelve un array con los mismos elementos sin cambiar, pero solo los que cumplen la condición (puede tener menos).
+
+En `nombresAprobados` uso los dos:
+
+```js
+aprobados(lista)                 // filter: 4 alumnos → 3 alumnos (Ana, Marta, Pablo)
+  .map(alumno => alumno.nombre); // map: 3 alumnos → 3 nombres ["Ana", "Marta", "Pablo"]
+```
+
+📷 `estadisticas-consola.png` — *(pegar captura)*
