@@ -149,3 +149,60 @@ Porque solo sirven para **mostrar** la tabla de una forma distinta, no para camb
 En esta página la tabla se seguiría viendo ordenada, porque `pintarTabla` vuelve a ordenar cada vez. Pero la lista verdadera perdería su orden original (el orden en que se añadieron los alumnos) y ya no se podría recuperar. Y si en algún momento se combinara con algo que cambie la lista (por ejemplo, si `filtrarAlumnos` también la cambiara), se perderían alumnos. Además, cualquier otra parte del código que confiara en el orden de `alumnos` (por ejemplo `quitarUltimo`, que quita el último) haría algo distinto de lo esperado.
 
 📷 `pagina-completa.png` — *(pegar captura)*
+
+---
+
+## Fase 5 · Depura con `console.table`
+
+### Mira tus datos
+
+- `console.table(alumnos)` → una tabla con tres columnas: `(index)` (0 a 9), `nombre` y `nota`. Se ve de un vistazo todo el contenido de la lista, mucho más claro que con `console.log`.
+- `console.table(alumnos.map(a => a.nota))` → una tabla con dos columnas: `(index)` y `Value`, con solo las notas. Como el array es de números (no de objetos), la columna de datos se llama `Value`.
+
+### Fallo 1 · `sort` sin comparación
+
+- **Qué pasaba:** quería `1, 5, 9, 10` y salía `[1, 10, 5, 9]`.
+- **Por qué:** `sort()` sin función de comparación ordena como texto, y `"10"` va antes que `"5"` porque `"1"` < `"5"`.
+- **Cómo lo arreglé:**
+  ```js
+  notas.sort((a, b) => a - b);
+  ```
+- **Herramienta:** `console.log(notas)`.
+
+### Fallo 2 · La "copia" que no era una copia
+
+- **Qué pasaba:** quería ordenar una copia, pero `console.table(alumnos)` mostraba que `alumnos` también estaba ordenado.
+- **Por qué:** `const copia = alumnos` no copia el array, solo crea otra referencia al mismo array. `sort` cambia el array, así que cambia `alumnos`.
+- **Cómo lo arreglé:**
+  ```js
+  const copia = [...alumnos];
+  copia.sort((a, b) => a.nota - b.nota);
+  ```
+- **Herramienta:** `console.table(alumnos)` antes y después.
+
+### Fallo 3 · `reduce` sin valor inicial
+
+- **Qué pasaba:** quería que `suma([])` diera `0` y salía `Uncaught TypeError: Reduce of empty array with no initial value`.
+- **Por qué:** sin valor inicial, `reduce` empieza con el primer elemento; con el array vacío no hay ninguno.
+- **Cómo lo arreglé:**
+  ```js
+  function suma(notas) {
+    return notas.reduce((a, b) => a + b, 0);
+  }
+  ```
+- **Herramienta:** el mensaje de error de la consola.
+
+### Fallo 4 · El bucle que se pasa de largo
+
+- **Qué pasaba:** escribía los 10 nombres y después salía `Uncaught TypeError: Cannot read properties of undefined (reading 'nombre')`.
+- **Por qué:** la condición era `i <= alumnos.length`. Con 10 alumnos, `i` llega a 10, pero la última posición es 9. `alumnos[10]` es `undefined` y `undefined.nombre` da error.
+- **Cómo lo arreglé:** cambiando `<=` por `<`:
+  ```js
+  for (let i = 0; i < alumnos.length; i++) {
+    console.log(alumnos[i].nombre);
+  }
+  ```
+  (O mejor aún, sin índices: `alumnos.forEach(a => console.log(a.nombre));`)
+- **Herramienta:** el mensaje de error de la consola y `console.log(i)` dentro del bucle para ver en qué vuelta fallaba.
+
+📷 `console-table.png` — *(pegar captura)*
