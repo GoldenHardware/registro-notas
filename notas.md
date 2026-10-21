@@ -6,24 +6,26 @@
 
 ## Fase 1 · Explora los arrays
 
-> ✏️ La columna **Mi predicción** la tengo que rellenar yo **antes** de ejecutar cada línea.
-> La columna **Lo que salió** es el resultado real en la consola.
+> **Mi predicción** la escribí antes de ejecutar cada línea; **Lo que salió** es el resultado real en la consola.
+> ✅ = acerté · ❌ = fallé
 
-| Nº | Línea | Mi predicción | Lo que salió |
-|----|-------|---------------|--------------|
-| 1 | `a[0]` | | `"x"` |
-| 2 | `a[3]` | | `undefined` |
-| 3 | `a.length` | | `3` |
-| 4 | `[1, "dos", true].length` | | `3` |
-| 5 | `const c = [1]; c.push(2); c` | | `[1, 2]` |
-| 6 | `q.push(4)` y mirar `p` | | devuelve `4`; `p` → `[1, 2, 3, 4]` |
-| 7 | `let r = [...p]; r.push(5)` y mirar `p` | | devuelve `5`; `p` → `[1, 2, 3, 4]` (no cambia) |
-| 8 | `[10, 9, 1].sort()` | | `[1, 10, 9]` |
-| 9 | `[10, 9, 1].sort((x, y) => x - y)` | | `[1, 9, 10]` |
-| 10 | `n.push(4)` | | devuelve `4`; `n` → `[3, 1, 2, 4]` (**cambia**) |
-| 11 | `n.pop()` | | devuelve `2`; `n` → `[3, 1]` (**cambia**) |
-| 12 | `n.slice(0, 2)` | | devuelve `[3, 1]`; `n` → `[3, 1, 2]` (no cambia) |
-| 13 | `n.map(x => x * 2)` | | devuelve `[6, 2, 4]`; `n` → `[3, 1, 2]` (no cambia) |
+| Nº | Línea | Mi predicción | Lo que salió | |
+|----|-------|---------------|--------------|---|
+| 1 | `a[0]` | `"x"` | `"x"` | ✅ |
+| 2 | `a[3]` | Error, porque la posición 3 no existe | `undefined` | ❌ |
+| 3 | `a.length` | `3` | `3` | ✅ |
+| 4 | `[1, "dos", true].length` | `3` | `3` | ✅ |
+| 5 | `const c = [1]; c.push(2); c` | Error, porque `c` es `const` y no se puede cambiar | `[1, 2]` | ❌ |
+| 6 | `q.push(4)` y mirar `p` | devuelve `4`; `p` sigue siendo `[1, 2, 3]` | devuelve `4`; `p` → `[1, 2, 3, 4]` | ❌ |
+| 7 | `let r = [...p]; r.push(5)` y mirar `p` | devuelve `5`; `p` no cambia: `[1, 2, 3, 4]` | devuelve `5`; `p` → `[1, 2, 3, 4]` (no cambia) | ✅ |
+| 8 | `[10, 9, 1].sort()` | `[1, 9, 10]` | `[1, 10, 9]` | ❌ |
+| 9 | `[10, 9, 1].sort((x, y) => x - y)` | `[1, 9, 10]` | `[1, 9, 10]` | ✅ |
+| 10 | `n.push(4)` | devuelve `[3, 1, 2, 4]`; `n` cambia | devuelve `4`; `n` → `[3, 1, 2, 4]` (**cambia**) | ❌ |
+| 11 | `n.pop()` | devuelve `2`; `n` → `[3, 1]` | devuelve `2`; `n` → `[3, 1]` (**cambia**) | ✅ |
+| 12 | `n.slice(0, 2)` | devuelve `[3, 1]`; `n` no cambia | devuelve `[3, 1]`; `n` → `[3, 1, 2]` (no cambia) | ✅ |
+| 13 | `n.map(x => x * 2)` | devuelve `[6, 2, 4]`; `n` → `[6, 2, 4]` | devuelve `[6, 2, 4]`; `n` → `[3, 1, 2]` (no cambia) | ❌ |
+
+**Resultado: 7 aciertos de 13.** Las sorpresas: leer fuera del array no da error, `const` deja cambiar el contenido del array, `q = p` no copia, `sort()` ordena como texto, `push` devuelve la longitud y `map` no toca el original.
 
 ### Preguntas
 
