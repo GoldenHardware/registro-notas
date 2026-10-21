@@ -4,7 +4,7 @@ Práctica 2 · Arrays — Desarrollo Web en Entorno Cliente · 2º DAW · IES Ju
 
 Una tabla con las notas de una clase en la que se puede filtrar (todos, aprobados y suspensos), ordenar (por nombre o por nota), añadir y borrar alumnos. Todo funciona con arrays de objetos `{ nombre, nota }`.
 
-**Página publicada:** _(enlace de GitHub Pages)_
+**Página publicada:** https://goldenhardware.github.io/registro-notas/
 
 ## Archivos
 
