@@ -43,3 +43,37 @@ Sin función de comparación, `sort` convierte los elementos a texto y los orden
 - **Devuelven uno nuevo sin tocar el original:** `slice` y `map`.
 
 📷 `tabla-predicciones.png` — *(pegar captura)*
+
+---
+
+## Fase 2 · Añadir, quitar, buscar y ordenar
+
+| Función | ¿Cambia la lista? | Método que usa |
+|---------|-------------------|----------------|
+| `anadirAlumno` | **cambia** | `push` |
+| `quitarUltimo` | **cambia** | `pop` |
+| `buscarPorNombre` | no cambia | `find` |
+| `insertarEn` | **cambia** | `splice(pos, 0, alumno)` |
+| `borrarPorNombre` | **cambia** (si encuentra al alumno) | `findIndex` + `splice(i, 1)` |
+| `ordenarPorNota` | no cambia | `[...lista].sort(...)` |
+| `ordenarPorNombre` | no cambia | `[...lista].sort(...)` con `localeCompare` |
+
+**Comprobación con los 10 alumnos:** `ordenarPorNota(ALUMNOS_INICIALES)` da
+Lucía (10), **Marta (9,25)**, Hugo (9), Ana (7,5), Elena (6,75), Iván (5,5), Pablo (5), Luis (4), Diego (3,5), Sara (1).
+
+> ⚠️ El enunciado dice que Hugo (9) debe salir segundo, pero Marta tiene 9,25, que es más que 9.
+> El orden correcto es Lucía → Marta → Hugo, y eso es lo que da la función.
+
+### Preguntas
+
+**1. ¿Qué funciones de esta fase cambian la lista y cuáles no? ¿Cómo lo sabes?**
+Cambian: `anadirAlumno`, `quitarUltimo`, `insertarEn` y `borrarPorNombre`. No cambian: `buscarPorNombre`, `ordenarPorNota` y `ordenarPorNombre`.
+Lo sé porque las primeras usan métodos que modifican el array (`push`, `pop`, `splice`), y las segundas o solo leen (`find`) o trabajan sobre una copia. Lo he comprobado en la consola: después de llamar a cada función miro la lista original (con `console.table(lista)`) y veo si ha cambiado.
+
+**2. ¿Por qué `ordenarPorNota` hace una copia antes de ordenar?**
+Porque `sort` ordena **el propio array** (lo cambia). Si ordenara la lista que recibe, perdería el orden original, y el enunciado pide que la lista no cambie. Con `[...lista]` se ordena una copia y la original queda igual.
+
+**3. ¿Qué pasaría con las notas 10, 9 y 1 si no usaras una función de comparación?**
+Se ordenarían como texto y saldrían `1, 10, 9` (de menor a mayor como texto), no `10, 9, 1`. Además, como en la lista hay objetos, sin comparación se compararían como `"[object Object]"` y el orden no tendría nada que ver con las notas.
+
+📷 `funciones-consola.png` — *(pegar captura)*
