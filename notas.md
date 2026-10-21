@@ -135,3 +135,17 @@ aprobados(lista)                 // filter: 4 alumnos → 3 alumnos (Ana, Marta,
 ```
 
 📷 `estadisticas-consola.png` — *(pegar captura)*
+
+---
+
+## Fase 4 · Tabla dinámica con filtro y orden
+
+### Preguntas
+
+**1. ¿Por qué `filtrarAlumnos` y `ordenarAlumnos` devuelven copias?**
+Porque solo sirven para **mostrar** la tabla de una forma distinta, no para cambiar los datos. La lista verdadera es `alumnos` (en `app.js`), y es la única que deben cambiar las acciones de verdad: añadir y borrar. Si filtrar la cambiara, al elegir «Aprobados» los suspensos desaparecerían de la lista para siempre, y al volver a «Todos» ya no estarían.
+
+**2. ¿Qué pasaría en la página si `ordenarAlumnos` cambiara la lista original?**
+En esta página la tabla se seguiría viendo ordenada, porque `pintarTabla` vuelve a ordenar cada vez. Pero la lista verdadera perdería su orden original (el orden en que se añadieron los alumnos) y ya no se podría recuperar. Y si en algún momento se combinara con algo que cambie la lista (por ejemplo, si `filtrarAlumnos` también la cambiara), se perderían alumnos. Además, cualquier otra parte del código que confiara en el orden de `alumnos` (por ejemplo `quitarUltimo`, que quita el último) haría algo distinto de lo esperado.
+
+📷 `pagina-completa.png` — *(pegar captura)*

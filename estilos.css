@@ -1,0 +1,264 @@
+/* =========================================================
+   estilos.css · Registro de notas
+   ========================================================= */
+
+:root {
+  --fondo: #f4f5f7;
+  --panel: #ffffff;
+  --texto: #1d2330;
+  --texto-suave: #5b6475;
+  --borde: #dfe3ea;
+  --acento: #3b5bdb;
+  --acento-hover: #2f4ac0;
+  --aprobado: #1f7a3f;
+  --aprobado-fondo: #e3f5e9;
+  --suspenso: #b42318;
+  --suspenso-fondo: #fde8e6;
+  --radio: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fondo: #14171d;
+    --panel: #1d222b;
+    --texto: #e7eaf0;
+    --texto-suave: #9aa3b5;
+    --borde: #2f3643;
+    --acento: #7d95ff;
+    --acento-hover: #95a8ff;
+    --aprobado: #6fd394;
+    --aprobado-fondo: #18331f;
+    --suspenso: #ff8a80;
+    --suspenso-fondo: #3d1d1b;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.5;
+}
+
+.cabecera {
+  text-align: center;
+  padding: 2rem 1rem 1rem;
+}
+
+.cabecera h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.subtitulo {
+  margin: 0.25rem 0 0;
+  color: var(--texto-suave);
+}
+
+.contenedor {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 1.25rem;
+}
+
+.panel h2 {
+  margin: 0 0 1rem;
+  font-size: 1.15rem;
+}
+
+/* ---------- Resumen ---------- */
+.resumen {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.resumen div {
+  background: var(--fondo);
+  border-radius: 8px;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.resumen dt {
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+
+.resumen dd {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Controles ---------- */
+.controles,
+.formulario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+}
+
+select,
+input,
+button {
+  font: inherit;
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--borde);
+  background: var(--panel);
+  color: var(--texto);
+}
+
+select:focus-visible,
+input:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 2px;
+}
+
+.formulario {
+  margin-bottom: 0;
+}
+
+.formulario button {
+  background: var(--acento);
+  border-color: var(--acento);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.formulario button:hover {
+  background: var(--acento-hover);
+}
+
+/* ---------- Tabla ---------- */
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla th,
+.tabla td {
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid var(--borde);
+  text-align: left;
+}
+
+.tabla th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--texto-suave);
+}
+
+.tabla tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.col-nota {
+  width: 6rem;
+  text-align: right !important;
+}
+
+.col-borrar {
+  width: 3rem;
+  text-align: center !important;
+}
+
+.nota {
+  display: inline-block;
+  min-width: 3.25rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.nota-aprobada {
+  color: var(--aprobado);
+  background: var(--aprobado-fondo);
+}
+
+.nota-suspensa {
+  color: var(--suspenso);
+  background: var(--suspenso-fondo);
+}
+
+.boton-borrar {
+  padding: 0.2rem 0.55rem;
+  cursor: pointer;
+  color: var(--texto-suave);
+}
+
+.boton-borrar:hover {
+  color: var(--suspenso);
+  border-color: var(--suspenso);
+}
+
+.tabla-vacia {
+  text-align: center !important;
+  color: var(--texto-suave);
+  font-style: italic;
+  padding: 1.5rem 0.5rem !important;
+}
+
+/* ---------- Mensajes ---------- */
+.mensaje {
+  margin: 0.75rem 0 0;
+  min-height: 1.5em;
+  font-weight: 600;
+}
+
+.mensaje-error {
+  color: var(--suspenso);
+}
+
+.mensaje-ok {
+  color: var(--aprobado);
+}
+
+/* Texto solo para lectores de pantalla */
+.oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .resumen {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

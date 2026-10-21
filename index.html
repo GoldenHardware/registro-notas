@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de notas</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header class="cabecera">
+    <h1>Registro de notas</h1>
+    <p class="subtitulo">Práctica 2 · Arrays — DWEC · 2º DAW</p>
+  </header>
+
+  <main class="contenedor">
+    <section class="panel" aria-labelledby="titulo-resumen">
+      <h2 id="titulo-resumen">Resumen</h2>
+      <dl id="resumen" class="resumen"></dl>
+    </section>
+
+    <section class="panel" aria-labelledby="titulo-tabla">
+      <h2 id="titulo-tabla">Alumnos</h2>
+
+      <div class="controles">
+        <label>
+          Mostrar
+          <select id="filtro">
+            <option value="todos">Todos</option>
+            <option value="aprobados">Aprobados</option>
+            <option value="suspensos">Suspensos</option>
+          </select>
+        </label>
+
+        <label>
+          Ordenar por
+          <select id="orden">
+            <option value="nombre">Nombre</option>
+            <option value="nota-desc">Nota más alta primero</option>
+            <option value="nota-asc">Nota más baja primero</option>
+          </select>
+        </label>
+      </div>
+
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col" class="col-nota">Nota</th>
+            <th scope="col" class="col-borrar"><span class="oculto">Borrar</span></th>
+          </tr>
+        </thead>
+        <tbody id="cuerpo-tabla"></tbody>
+      </table>
+    </section>
+
+    <section class="panel" aria-labelledby="titulo-form">
+      <h2 id="titulo-form">Añadir alumno</h2>
+
+      <form id="formulario" class="formulario" novalidate>
+        <label>
+          Nombre
+          <input type="text" id="campo-nombre" autocomplete="off" placeholder="Ej.: Eva">
+        </label>
+        <label>
+          Nota
+          <input type="text" id="campo-nota" inputmode="decimal" autocomplete="off" placeholder="0 a 10">
+        </label>
+        <button type="submit">Añadir</button>
+      </form>
+
+      <p id="mensaje" class="mensaje" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <script src="notas.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

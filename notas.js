@@ -185,3 +185,62 @@ function todosAprobados(lista) {
 function ranking(lista, n) {
   return ordenarPorNota(lista).slice(0, n);
 }
+
+/* ---------------------------------------------------------
+   Fase 4 · Filtro, orden y validación para la página
+   --------------------------------------------------------- */
+
+/**
+ * Filtra los alumnos según el filtro elegido.
+ * NO cambia la lista: siempre devuelve una copia.
+ * @param {Array<{nombre: string, nota: number}>} lista - Lista de alumnos.
+ * @param {"todos" | "aprobados" | "suspensos"} filtro - Qué alumnos mostrar.
+ * @returns {Array<{nombre: string, nota: number}>} Copia con los alumnos que cumplen el filtro.
+ */
+function filtrarAlumnos(lista, filtro) {
+  switch (filtro) {
+    case "aprobados":
+      return aprobados(lista);
+    case "suspensos":
+      return lista.filter(alumno => alumno.nota < NOTA_APROBADO);
+    default:
+      return [...lista];
+  }
+}
+
+/**
+ * Ordena los alumnos según el criterio elegido (usa las funciones de la Fase 2).
+ * NO cambia la lista: siempre devuelve una copia.
+ * @param {Array<{nombre: string, nota: number}>} lista - Lista de alumnos.
+ * @param {"nombre" | "nota-desc" | "nota-asc"} criterio - Cómo ordenar.
+ * @returns {Array<{nombre: string, nota: number}>} Copia ordenada.
+ */
+function ordenarAlumnos(lista, criterio) {
+  switch (criterio) {
+    case "nombre":
+      return ordenarPorNombre(lista);
+    case "nota-desc":
+      return ordenarPorNota(lista);
+    case "nota-asc":
+      // ordenarPorNota ya devuelve una copia, así que reverse no toca la original.
+      return ordenarPorNota(lista).reverse();
+    default:
+      return [...lista];
+  }
+}
+
+/**
+ * Comprueba si un texto es una nota válida: un número de 0 a 10.
+ * Acepta punto o coma decimal ("7.5" o "7,5").
+ * NO recibe la lista.
+ * @param {string} texto - Lo que ha escrito el usuario.
+ * @returns {boolean} true si es un número de 0 a 10; false si está vacío o no es un número.
+ */
+function esNotaValida(texto) {
+  const limpio = String(texto).trim().replace(",", ".");
+  if (limpio === "") {
+    return false;
+  }
+  const nota = Number(limpio);
+  return Number.isFinite(nota) && nota >= 0 && nota <= 10;
+}
